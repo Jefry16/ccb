@@ -1,0 +1,77 @@
+{% extends "back-base.html" %}
+{% block title %} Nuevo {% endblock %}
+
+{% block body %}
+<div class="container">
+        <h2>Nuevo post</h2>
+    <main class="square">
+
+        <form action="/ccb/admin/blog/guardar" method="post" enctype="multipart/form-data">
+            <div class="input-holder">
+                <input class="input" type="text" name="title" placeholder="Título" value="{{ inputs.title}}">
+                <span>{{ error.title }}</span>
+            </div>
+            
+           
+            <div class="text-area-holder">
+                <textarea class="input" name="description" placeholder="Descripción">{{ inputs.description }}</textarea>
+                <span>{{ error.description }}</span>
+            </div>
+              
+            
+            <div class="input-holder">
+                <label>Miniatura
+                    <input type="file" name="thumbnail">
+                </label>
+            </div>
+
+            <div class="content">
+                <textarea class="input"  name="content" id="content">{{ inputs.content}}</textarea>
+                <span>{{ error.content }}</span>
+            </div>
+            
+            <div class="input-holder">
+                <label>Categoría
+                    <select class="select" name="category">
+                        {% for c in category %}
+                            <option value="{{ c.id }}">{{ c.name }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <span>{{ error.category }}</span>
+            </div>
+
+            <div class="input-holder">
+                <input class="input" type="text" name="tags" placeholder="Etiquetas, separadas, por, comas">
+                <span>{{ error.tags }}</span>
+            </div>
+            
+
+            <div class="input-holder">
+                <label>Estado
+                    <select class="select" name="status">
+                        {% for s in status %}
+                            <option value="{{ s }}">{{ s }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <span>{{ error.status }}</span>
+            </div>
+            <input class="btn btn-main-color" type="submit" value="Guardar">
+        </form>
+    </main>
+</div>
+
+<script src="/tinymce/tinymce.min.js"></script>
+    <script>
+        tinyMCE.init({
+        selector : "#content",
+        height : 700,
+        browser_spellcheck : true,
+        plugins: "paste, searchreplace,fullscreen, hr, link,anchor, image, charmap, media, autoresize, autosave, contextmenu, wordcount",
+        toolbar1: "cut copy paste | undo redo removeformat | hr | link unlink anchor image | charmap media | search replace | fullscreen",
+        toolbar2: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | formatselect | bullist numlist | outdent indent blockquote",
+        content_css: '/css/bootstrap.min.css',
+        })
+    </script>
+{% endblock %}

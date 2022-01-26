@@ -1,0 +1,21 @@
+{% extends "basec.html" %}
+
+{% block title %}{{ title }} {% endblock %}
+
+{% block body %}
+        
+        <h1>{{ title }}</h1>
+        {% if posts|length > 0 %}
+            {% for p in posts %}
+                <div class="card w-50">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ p.title }}</h2>
+                        <p class="card-text">{{ p.description }}</p>
+                        <a href="#" class="btn btn-primary">Button</a>
+                    </div>
+                </div>
+        {% endfor %}
+        {% else %}
+            <p>Nothing to show at this moment here.</p>
+        {% endif %}
+{% endblock %}

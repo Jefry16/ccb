@@ -1,0 +1,55 @@
+{% extends "basec.html" %}
+
+
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1>Register</h1>
+    <p>Access to the site's content is available to registered users at a cost of $10.00 (US) per year. Use the form below to begin the registration process. <strong>Note: All fields are required.</strong> After completing this form, you'll be presented with the opportunity to securely pay for your yearly subscription via <a href="http://www.paypal.com">PayPal</a>.</p>
+    
+<form action="/register/new" method="post" accept-charset="utf-8">
+    
+    <!--firstname-->
+    <div class="form-group {% if errors.firstname %} has-error {% endif %}">
+        <label>First name
+            <input type="text" name="firstName" id=""  class="form-control" {% if firstName %}value="{{ firstName }}"{% endif %}>
+        </label>
+    </div>
+    {% if errors.firstname %} <span class="help-block text-danger">{{ errors.firstname }}</span> {% endif %}
+     
+    <!--lastname-->
+    <div class="form-group {% if errors.lastname %} has-error {% endif %}">
+        <label>Last name
+            <input type="text" name="lastName" id="" class="form-control" {% if lastName %}value="{{ lastName }}"{% endif %}>
+        </label>
+    </div>
+    {% if errors.lastname %} <span class="help-block text-danger" >{{ errors.lastname }}</span> {% endif %}
+    
+    <!--username-->
+    <div class="form-group {% if errors.username %} has-error {% endif %}">
+        <label>Username
+            <input type="text" name="username" id="" class="form-control" {% if username %}value="{{ username }}"{% endif %}>
+        </label>
+    </div>
+    {% if errors.username %} <span class="help-block text-danger">{{ errors.username }}</span> {% endif %}
+    
+    <!--email-->
+    <div class="form-group {% if errors.email %} has-error {% endif %}">
+        <label>Email
+            <input type="text" name="email" id="" class="form-control" {% if email %}value="{{ email }}"{% endif %}>
+        </label>
+    </div>
+    {% if errors.email %} <span class="help-block text-danger">{{ errors.email }}</span> {% endif %}
+    
+    <!--password-->
+    <div class="form-group {% if errors.password %} has-error {% endif %}">
+        <label>Password
+            <input type="password" name="password" id="" class="form-control">
+        </label>
+    </div>
+    {% if errors.password %} <span class="help-block text-danger">{{ errors.password }}</span> {% endif %}
+
+	<input type="submit"  value="Next &rarr;" id="submit_button" class="btn btn-default" />
+</form>
+{% endblock %}
