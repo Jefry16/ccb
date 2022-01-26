@@ -4,6 +4,7 @@ namespace App\Models;
 
 use PDO;
 use App\Modules\Token;
+use App\Modules\Upload;
 
 class Post extends \Core\Model
 {
@@ -54,6 +55,7 @@ class Post extends \Core\Model
         $this->validateTags($tags);
         $this->validateStatus($status);
         $this->validateContent($content);
+        $this->validateThumbnail();
      }
 
     private function validateTitle($title)
@@ -113,6 +115,11 @@ class Post extends \Core\Model
         }   
     }
 
+    private function validateThumbnail()
+    {
+      
+    }
+
     /**
      * Trasnformation functions
      */
@@ -120,4 +127,6 @@ class Post extends \Core\Model
         $slug=preg_replace('/[^A-Za-z0-9-]+/', '-', strtolower($string));
         return $slug;
      }
+
+
 }

@@ -26,7 +26,7 @@ class Blog extends \Core\Controller
        View::renderTemplate('Backoffice/Statico/blog-init.html');
     }
 
-    public function nuevo()
+    public function nuevoAction()
     {
        View::renderTemplate('Backoffice/Blog/blog-new.html', [
         'category' => Category::getAll(),
@@ -34,12 +34,12 @@ class Blog extends \Core\Controller
        ]);
     }
 
-    public function guardar()
+    public function guardarAction()
     {
         $post = new Post($_POST);
-        Upload::singleImage();
-        exit;
         $inputs = $_POST;
+        $post->save();
+        
         if($post->save()) {
 
         } else {
@@ -51,7 +51,8 @@ class Blog extends \Core\Controller
                 'status' => Helper::getAllStatus()
             ]);
         }
-        
+        var_dump($post->errors);
+
     }
 
 }
