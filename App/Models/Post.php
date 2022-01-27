@@ -21,26 +21,50 @@ class Post extends \Core\Model
     {
         $this->validateBeforeSAving($_POST['title'], $_POST['description'], $_POST['category'], $_POST['tags'], $_POST['status'], $_POST['content']);
 
-        if (empty($this->errors)) {
-            $sql = 'INSERT INTO post (title, description, content, category, thumbnail, tags, status, slug)
+        if (empty($this->errors )) {
+            
+            $uploadResult = Upload::singleImage();
+
+            if(is_array($uploadResult)) {
+                $this->errors['upload'] = $uploadResult[0];
+                
+                return false;
+            } 
+
+            if ( $uploadResult === 0 ) {
+                $uploadResult = '';
+            } 
+
+                $sql = 'INSERT INTO post (title, description, content, category, thumbnail, tags, status, slug)
                     VALUES(:title, :description, :content, :category, :thumbnail, :tags, :status, :slug)';
 
-            $db = static::getDB();
-            $stmt = $db->prepare($sql);
+                $db = static::getDB();
+                $stmt = $db->prepare($sql);
 
-            $stmt->bindValue(':title', $this->title, PDO::PARAM_STR);
-            $stmt->bindValue(':description', $this->description, PDO::PARAM_STR);
-            $stmt->bindValue(':content', $this->content, PDO::PARAM_STR);
-            $stmt->bindValue(':category', $this->category, PDO::PARAM_INT);
-            $stmt->bindValue(':thumbnail', $this->thumbnail, PDO::PARAM_STR);
-            $stmt->bindValue(':tags', $this->tags, PDO::PARAM_STR);
-            $stmt->bindValue(':status', $this->status, PDO::PARAM_STR);
-            $stmt->bindValue(':slug', $this->create_slug($this->title), PDO::PARAM_STR);
+                $stmt->bindValue(':title', $this->title, PDO::PARAM_STR);
+                $stmt->bindValue(':description', $this->description, PDO::PARAM_STR);
+                $stmt->bindValue(':content', $this->content, PDO::PARAM_STR);
+                $stmt->bindValue(':category', $this->category, PDO::PARAM_INT);
+                $stmt->bindValue(':thumbnail', $uploadResult, PDO::PARAM_STR);
+                $stmt->bindValue(':tags', $this->tags, PDO::PARAM_STR);
+                $stmt->bindValue(':status', $this->status, PDO::PARAM_STR);
+                $stmt->bindValue(':slug', $this->create_slug($this->title), PDO::PARAM_STR);
             
-            return $stmt->execute();
+                return $stmt->execute();
 
         }
         return false;
+    }
+
+    /**
+     * Getter functions
+     */
+
+    public static function getAll()
+    {
+        $db = static::getDB();
+        $stmt = $db->query('SELECT title, date_created, date_modified, name, status FROM post INNER JOIN category ON post.category = category.id');
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -55,7 +79,7 @@ class Post extends \Core\Model
         $this->validateTags($tags);
         $this->validateStatus($status);
         $this->validateContent($content);
-        $this->validateThumbnail();
+
      }
 
     private function validateTitle($title)
@@ -115,10 +139,6 @@ class Post extends \Core\Model
         }   
     }
 
-    private function validateThumbnail()
-    {
-      
-    }
 
     /**
      * Trasnformation functions

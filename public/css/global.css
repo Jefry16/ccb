@@ -130,3 +130,62 @@ label{
 .content{
     margin: 58px auto;
 }
+
+.table, .table-half{
+    width: 100%;
+    text-align: left;
+    border: none;
+    border-collapse: collapse;
+    margin: 5rem 0;
+}
+
+.table-half{
+    width: 50%;
+}
+.th-left{
+    text-align: left;
+}
+.tr-dark{
+    background-color: #dcc0b3a2;
+    height: 5rem;
+}
+
+.tr-light{
+    background-color: white;
+    height: 5rem;
+}
+
+.tr-light:hover{
+     filter: brightness(95%);
+}
+
+.tr-dark:hover{
+    filter: brightness(95%);
+}
+
+th{
+    font-size: 2.5rem;
+    padding-left: 1rem;
+}
+
+td{
+    font-size: 2.5rem;
+    padding-left: 1rem;
+}
+
+.action-icon{
+    display: inline;
+    max-width: 4rem;
+}
+
+.grey-color{
+    color: #666666;
+}
+
+.icon-group{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    align-items: flex-end;
+    padding-top: 1rem;
+}

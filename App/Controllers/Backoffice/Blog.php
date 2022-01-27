@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Helper;
 use App\Models\Post;
 use App\Modules\Auth;
+use App\Modules\Flashmessage;
 use App\Modules\Upload;
 use \Core\View;
 
@@ -23,7 +24,11 @@ class Blog extends \Core\Controller
 
     public function indexAction()
     {
-       View::renderTemplate('Backoffice/Statico/blog-init.html');
+        
+       View::renderTemplate('Backoffice/Blog/blog-init.html', [
+           'posts' => Post::getAll(),
+           'categories' => Category::getAll()
+       ]);
     }
 
     public function nuevoAction()
@@ -38,9 +43,13 @@ class Blog extends \Core\Controller
     {
         $post = new Post($_POST);
         $inputs = $_POST;
-        $post->save();
+
         
         if($post->save()) {
+
+            Flashmessage::set('El post se ha guardado como '. $post->status, Flashmessage::SUCCESS);
+            
+            $this->redirect('/ccb/admin/blog/index');
 
         } else {
             
@@ -51,7 +60,6 @@ class Blog extends \Core\Controller
                 'status' => Helper::getAllStatus()
             ]);
         }
-        var_dump($post->errors);
 
     }
 

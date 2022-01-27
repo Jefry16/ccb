@@ -7,10 +7,14 @@
     <meta name="author" content="">
   <title>{% block title %}Inicio{% endblock %}</title>
   <link rel="stylesheet" href="/css/global.css">
+  {% block css %}{% endblock %}
   </head>
 
   <body>
   <div class="container">
+    {% for f in flash_notification %}
+      <div>{{ f.message }}</div>
+    {% endfor %}
     <nav class="backoffice-nav">
       <a class="main-color" href="/ccb/admin/citas/index">CITAS</a>
       <a class="main-color" href="/ccb/admin/cabeceras/index">CABECERAS</a>

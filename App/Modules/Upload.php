@@ -7,13 +7,15 @@ class Upload
 {
   public static function singleImage()
   { 
-    $error = '';
+    $error = 0;
+
 
     if(isset($_FILES['thumbnail']) && !$_FILES['thumbnail']['error']){
       
       if ($_FILES['thumbnail']['size'] > 1000000) {
 
-        $error = 'El tamaño del archivo supera el limite';
+        $error = ['El tamaño del archivo supera el limite'];
+
         return $error;
       }
 
@@ -25,7 +27,8 @@ class Upload
 
       if ( ! in_array($mime_type, $mime_types)) {
 
-          $error = 'Archivo invalido';
+          $error = ['Archivo invalido'];
+
           return $error;
 
       }
@@ -52,9 +55,14 @@ class Upload
         }
 
         if(move_uploaded_file($_FILES['thumbnail']['tmp_name'], $destination)){
-          $error = '';
+          $error = $filename;
+
+          return $error;
+
         } else {
-          $error = 'No se pudo subir el archivo';
+          $error = ['No se pudo subir el archivo'];
+          return $error;
+
         }
     }
     return $error;

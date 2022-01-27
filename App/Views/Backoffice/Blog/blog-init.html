@@ -1,0 +1,72 @@
+{% extends "back-base.html" %}
+{% block css %} <link rel="stylesheet" href="/css/blog-init.css">{% endblock %}
+{% block title %} Blog {% endblock %}
+
+{% block body %}
+<div class="container">
+    <main>
+        <h2>Posts del blog</h2>
+        <a class="btn btn-main-color" href="/ccb/admin/blog/nuevo">Añadir nuevo</a>
+
+        <table class="table grey-color">
+            <thead>
+                <tr>
+                    <th class="th-left main-color">Título</th>
+                    <th class="th-left main-color">Creado</th>
+                    <th class="th-left main-color">Actualizado</th>
+                    <th class="th-left main-color">Categoría</th>
+                    <th class="th-left main-color">Estado</th>
+                    <th class="th-left main-color">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in posts %}
+                    <tr class="{{ loop.index is divisible by(2) ? 'tr-light' : 'tr-dark' }}">
+                        <td>{{p.title|length < 50 ? p.title : p.title|slice(0, 50)~ '...' }}</td>
+                        <td>{{p.date_created}}</td>
+                        <td>{{p.date_modified ?? '-'}}</td>
+                        <td>{{p.name}}</td>
+                        <td>{{p.status}}</td>
+                        <td class="icon-group">
+                        <a href=""><img class="action-icon" src="/images/action3.svg"></a>
+                        <a href=""><img class="action-icon" src="/images/action1.svg"></a>
+                        <a href=""><img class="action-icon" src="/images/action2.svg"></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2>Categorías</h2>
+        <form action="/ccb/admin/category/add" method="POST" class="category-form">
+            <input type="text" name="name" placeholder="Escribe aquí..." class="input-category">
+            <input type="submit" value="Añadir nueva" class="btn btn-main-color">
+        </form>
+
+        <table class="table table-half grey-color">
+            <thead>
+                <tr>
+                    <th class="th-left main-color">Nombre</th>
+                    <th class="th-left main-color">Creada</th>
+                    <th class="th-left main-color">Actualizada</th>
+                    <th class="th-left main-color">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in categories %}
+                    <tr class="{{ loop.index is divisible by(2) ? 'tr-light' : 'tr-dark' }}">
+                        <td>{{ c.name|capitalize }}</td>
+                        <td>{{ c.created_at}}</td>
+                        <td>{{ c.modified_at ?? '-'}}</td>
+                        <td class="icon-group">
+                            {% if c.id != 1 %}
+                                <a href=""><img class="action-icon" src="/images/action3.svg"></a>
+                                <a href=""><img class="action-icon" src="/images/action1.svg"></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</div>
+{% endblock %}
