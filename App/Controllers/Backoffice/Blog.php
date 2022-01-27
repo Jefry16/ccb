@@ -63,4 +63,9 @@ class Blog extends \Core\Controller
 
     }
 
+    public function viewAction()
+    {
+        echo $this->route_params['slug'];
+    }
+
 }

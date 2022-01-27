@@ -20,6 +20,7 @@ p {
     width: 95%;
     max-width: 180rem;
     margin: 0 auto;
+    position: relative;
 }
 
 a {
@@ -120,6 +121,9 @@ label{
     border-radius: 0;
     padding: 0.5rem 5rem;
     font-size: 2rem;
+    cursor: pointer;
+    color: #DCC0B3;
+    background-color: #FFFFFF;
 }
 
 .btn-main-color{
@@ -184,8 +188,52 @@ td{
 
 .icon-group{
     display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding-top: 1rem;
+}
+.alert{
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #C0E9DC;
+    padding: 2rem;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 2.2rem;
+}
+
+.dialog-holder{
+    background-color: rgba(255, 255, 255, 0.863);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog{
+    max-width: 50rem;
+    padding: 2.5rem 1rem;
+    background-color: #DCC0B3;
+}
+
+.dialog p {
+    font-weight: 900;
+    font-size: 2.5rem;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 4rem;
+    line-height: 1.1;
+}
+
+.dialog div{
+    display: flex;
     justify-content: center;
     gap: 1rem;
-    align-items: flex-end;
-    padding-top: 1rem;
 }

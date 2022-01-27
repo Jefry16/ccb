@@ -13,7 +13,7 @@
   <body>
   <div class="container">
     {% for f in flash_notification %}
-      <div>{{ f.message }}</div>
+      <div class="alert"><em>{{ f.message }}</em></div>
     {% endfor %}
     <nav class="backoffice-nav">
       <a class="main-color" href="/ccb/admin/citas/index">CITAS</a>
@@ -23,13 +23,13 @@
       <a href="" class="close-session-btn"><img src="/images/close-session.svg" alt="close"></a>
 
     </nav>
-  </div>
-  
-  {% block body %}
-    <h1>Bienvenida</h1>
-  {% endblock %}
-   
-    <script src="/js/global.js" defer></script>
 
+  
+    {% block body %}
+      <h1>Bienvenida</h1>
+    {% endblock %}
+     </div>
+    <script src="/js/global.js" defer></script>
+    {% block scripts %}{% endblock %}
   </body>
 </html>

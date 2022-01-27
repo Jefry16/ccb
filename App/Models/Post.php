@@ -56,6 +56,18 @@ class Post extends \Core\Model
         return false;
     }
 
+    public static function deleteOne($id){
+        $sql = 'DELETE from post WHERE id = :id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+
+        return $stmt->execute();
+
+    }
+
     /**
      * Getter functions
      */
@@ -63,7 +75,8 @@ class Post extends \Core\Model
     public static function getAll()
     {
         $db = static::getDB();
-        $stmt = $db->query('SELECT title, date_created, date_modified, name, status FROM post INNER JOIN category ON post.category = category.id');
+        $stmt = $db->query('SELECT title, date_created, date_modified, name, status, post.slug, post.id FROM post INNER JOIN category ON post.category = category.id');
+
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

@@ -26,6 +26,7 @@ session_start();
 $router = new Core\Router();
 
 // specifics routes
+$router->add('{slug:[\w-]+}', ['controller' => 'Blog', 'action' => 'view', 'namespace' => 'Backoffice']);
 
 $router->add('ccb/admin/login', ['controller' => 'Login', 'action' => 'index', 'namespace' => 'Backoffice']);
 $router->add('ccb/admin', ['controller' => 'Admin', 'action' => 'index', 'namespace' => 'Backoffice']);
