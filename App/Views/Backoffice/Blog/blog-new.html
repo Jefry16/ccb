@@ -22,6 +22,8 @@
             <div class="input-holder">
                 <label>Miniatura
                     <input type="file" name="thumbnail" accept="image/png, image/gif, image/jpeg">
+                    <button id="galleryBtn" type="button" class="btn btn-main-color">Añadir desde la galería</button>
+                    <input type="hidden" name="thumbnail" id="hiddenThumbnail">
                 </label>
                 <span>{{ error.upload }}</span>
             </div>
@@ -62,7 +64,9 @@
     </main>
 </div>
 
-<script src="/tinymce/tinymce.min.js"></script>
+{% endblock %}
+{% block scripts %}
+    <script src="/tinymce/tinymce.min.js"></script>
     <script>
         tinyMCE.init({
         selector : "#content",
@@ -74,4 +78,5 @@
         content_css: '/css/bootstrap.min.css',
         })
     </script>
+    <script src="/js/blog-new.js" defer></script>
 {% endblock %}

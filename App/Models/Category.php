@@ -16,6 +16,33 @@ class Category extends \Core\Model
         }
     }
 
+    public static function deleteOne($id){
+        $sql = 'DELETE from category WHERE id = :id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+
+        return $stmt->execute();
+
+    }
+
+    public static function updateOne($id, $name){
+        $sql = 'UPDATE category SET name = :name, modified_at = NOW(), slug = :slug WHERE id = :id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt->bindValue(':slug', Static::create_slug($name), PDO::PARAM_STR);
+
+
+        return $stmt->execute();
+
+    }
+
     public static function getAll()
     {
         $db = static::getDB();
@@ -84,7 +111,7 @@ class Category extends \Core\Model
          }
     }
 
-    private function create_slug($string){
+    private static function create_slug($string){
         $slug=preg_replace('/[^A-Za-z0-9-]+/', '-', strtolower($string));
         return $slug;
      }

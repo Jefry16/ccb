@@ -32,7 +32,9 @@ class Post extends \Core\Model
             } 
 
             if ( $uploadResult === 0 ) {
-                $uploadResult = '';
+                $thumbNailFromGallery = $_POST['thumbnail'] ?? ' ';
+                $uploadResult = $thumbNailFromGallery;
+
             } 
 
                 $sql = 'INSERT INTO post (title, description, content, category, thumbnail, tags, status, slug)
